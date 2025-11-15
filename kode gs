@@ -1,0 +1,58 @@
+function doPost(e) {
+  try {
+    const sheet = SpreadsheetApp.openById("16bqXf21qBKGWFnz8EkqEWtTS2Da9tEsfCwPYpDklUPs").getSheetByName("Form");
+    const mainFolder = DriveApp.getFolderById("1Tx87PKerkZ-ONaS4FfiXecxwfflDsxGg");
+
+    const data = JSON.parse(e.postData.contents);
+
+    const nama = data.nama || "";
+    const npp = data.npp || "";
+    const divisi = data.divisi || "";
+    const cou = data.cou || "";
+    const jabatan = data.jabatan || "";
+
+    // 🔥 Buat folder baru per nama pelamar (jika belum ada)
+    let folder;
+    const folders = mainFolder.getFoldersByName(nama);
+    if (folders.hasNext()) {
+      folder = folders.next();
+    } else {
+      folder = mainFolder.createFolder(nama);
+    }
+
+    // Upload file (base64 decoding)
+    const lamaranURL = saveFileToFolder(data.lamaranBase64, data.lamaranName, folder);
+    const cvURL = saveFileToFolder(data.cvBase64, data.cvName, folder);
+    const otherURL = saveFileToFolder(data.otherBase64, data.otherName, folder);
+
+    // Simpan ke sheet
+    sheet.appendRow([
+      new Date(),
+      nama,
+      npp,
+      divisi,
+      cou,
+      jabatan,
+      lamaranURL,
+      cvURL,
+      otherURL
+    ]);
+
+    return ContentService.createTextOutput(
+      JSON.stringify({ status: "OK", message: "Data berhasil disimpan" })
+    ).setMimeType(ContentService.MimeType.JSON);
+
+  } catch (err) {
+    return ContentService.createTextOutput(
+      JSON.stringify({ status: "ERROR", message: err.toString() })
+    ).setMimeType(ContentService.MimeType.JSON);
+  }
+}
+
+function saveFileToFolder(base64Data, fileName, folder) {
+  if (!base64Data) return "";
+
+  const blob = Utilities.newBlob(Utilities.base64Decode(base64Data), "", fileName);
+  const file = folder.createFile(blob);
+  return file.getUrl();
+}
