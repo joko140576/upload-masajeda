@@ -1,210 +1,224 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Form Upload SSI</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Form Upload SSI</title>
 
-<!-- Bootstrap CSS -->
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 
-<style>
-body { background: #f5f7fa; }
-.card { border-radius: 15px; box-shadow: 0 4px 20px rgba(0,0,0,0.08); }
+   
+        <style>
+    body { 
+        background: url('https://images.unsplash.com/photo-1519389950473-47ba0277781c?q=80&w=870&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D') no-repeat center center fixed;
+        background-size: cover; 
+        font-family: "Inter", sans-serif;
+    }
 
-/* (overlay removed - using modal loading instead) */
-</style>
+    .overlay {
+        backdrop-filter: blur(6px);
+        background: rgba(255, 255, 255, 0.55);
+        border-radius: 15px;
+        padding: 20px;
+        box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+    }
+
+    .card { 
+        border-radius: 15px; 
+        box-shadow: 0 4px 20px rgba(0,0,0,0.08); 
+    }
+
+
+    </style>
 </head>
 
 <body class="p-3">
 
-<!-- (overlay removed) -->
-
-<!-- MODAL LOADING -->
-<div class="modal fade" id="loadingModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered">
-    <div class="modal-content text-center p-4">
-      <div class="spinner-border text-primary" style="width:3rem;height:3rem;" role="status"></div>
-      <h5 class="mt-3">Sedang proses, harap menunggu...</h5>
-    </div>
-  </div>
-</div>
-
-<div class="container" style="max-width:900px">  
-
-    <h2 class="text-center mb-4 fw-bold">Form Input & Upload File</h2>
-
-    <!-- DATA DIRI -->
-    <div class="card p-4 mb-4">
-        <h4 class="mb-3">Data Diri</h4>
-
-        <div class="mb-3"><input id="nama" class="form-control" placeholder="Nama"></div>
-        <div class="mb-3"><input id="npp" class="form-control" placeholder="NPP"></div>
-        <div class="mb-3">
-            <select id="divisi" class="form-control">
-                <option value="">Pilih Divisi</option>
-                <option>HCC</option>
-                <option>INA</option>
-                <option>PLM</option>
-                <option>FRM</option>
-                <option>OPS</option>
-                <option>OPR1</option>
-                <option>OPR2</option>
-                <option>MBS</option>
-                <option>SBD</option>
-                <option>CSI</option>
-            </select>
-        </div>
-        <div class="mb-3"><input id="cou" class="form-control" placeholder="COU"></div>
-        <div class="mb-3">
-            <select id="jabatan" class="form-control">
-                <option value="">Pilih Jabatan</option>
-                <option>CEO</option>
-                <option>Deputy</option>
-                <option>Senior Manager</option>
-                <option>Manager</option>
-                <option>Asmen</option>
-                <option>Staf</option>
-            </select>
+    <!-- MODAL LOADING -->
+    <div class="modal fade" id="loadingModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content text-center p-4">
+                <div class="spinner-border text-primary" style="width:3rem;height:3rem;" role="status"></div>
+                <h5 class="mt-3">Sedang proses, harap menunggu...</h5>
+            </div>
         </div>
     </div>
 
-    <!-- FILE UPLOAD -->
-    <div class="card p-4 mb-4">
-        <h4 class="mb-3">Upload Lampiran</h4>
+    <div class="container overlay" style="max-width:900px">
 
-        <div class="mb-3">
-            <label class="form-label">File Lamaran</label>
-            <input type="file" id="fileLamaran" class="form-control">
+        <h2 class="text-center mb-4 fw-bold">Form Input & Upload File</h2>
+
+        <!-- DATA DIRI -->
+        <div class="card p-4 mb-4">
+            <h4 class="mb-3">Data Diri</h4>
+
+            <div class="mb-3"><input id="nama" class="form-control" placeholder="Nama"></div>
+            <div class="mb-3"><input id="npp" class="form-control" placeholder="NPP"></div>
+
+            <div class="mb-3">
+                <select id="divisi" class="form-control">
+                    <option value="">Pilih Divisi</option>
+                    <option>HCC</option>
+                    <option>INA</option>
+                    <option>PLM</option>
+                    <option>FRM</option>
+                    <option>OPS</option>
+                    <option>OPR1</option>
+                    <option>OPR2</option>
+                    <option>MBS</option>
+                    <option>SBD</option>
+                    <option>CSI</option>
+                </select>
+            </div>
+
+            <div class="mb-3"><input id="cou" class="form-control" placeholder="COU"></div>
+
+            <div class="mb-3">
+                <select id="jabatan" class="form-control">
+                    <option value="">Pilih Jabatan</option>
+                    <option>CEO</option>
+                    <option>Deputy</option>
+                    <option>Senior Manager</option>
+                    <option>Manager</option>
+                    <option>Asmen</option>
+                    <option>Staf</option>
+                </select>
+            </div>
         </div>
 
-        <div class="mb-3">
-            <label class="form-label">File CV</label>
-            <input type="file" id="fileCV" class="form-control">
+        <!-- FILE UPLOAD -->
+        <div class="card p-4 mb-4">
+            <h4 class="mb-3">Upload Lampiran</h4>
+
+            <div class="mb-3">
+                <label class="form-label">File Lamaran</label>
+                <input type="file" id="fileLamaran" class="form-control">
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">File CV</label>
+                <input type="file" id="fileCV" class="form-control">
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Berkas Lainnya</label>
+                <input type="file" id="fileOther" class="form-control">
+            </div>
         </div>
 
-        <div class="mb-3">
-            <label class="form-label">Berkas Lainnya</label>
-            <input type="file" id="fileOther" class="form-control">
+        <button onclick="submitForm()" class="btn btn-primary w-100 py-3 fw-bold">SUBMIT</button>
+    </div>
+
+    <!-- MODAL SUKSES -->
+    <div class="modal fade" id="successModal" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+
+                <div class="modal-header bg-success text-white">
+                    <h5 class="modal-title">Berhasil</h5>
+                </div>
+
+                <div class="modal-body text-center">
+                    <p class="fs-5">Data anda berhasil kami simpan.</p>
+                </div>
+
+                <div class="modal-footer">
+                    <button class="btn btn-success w-100" data-bs-dismiss="modal">OK</button>
+                </div>
+
+            </div>
         </div>
     </div>
 
-    <button onclick="submitForm()" class="btn btn-primary w-100 py-3 fw-bold">SUBMIT</button>
-</div>
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
+    <script>
+        const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyAOVu1tzWaBbVcY66BK3m2rn-yj457qevvz_H-qvHxKm7Djry_wASX_JvC5yMio6t_/exec";
 
-<!-- MODAL SUKSES -->
-<div class="modal fade" id="successModal" tabindex="-1">
-  <div class="modal-dialog modal-dialog-centered">
-    <div class="modal-content">
-
-      <div class="modal-header bg-success text-white">
-        <h5 class="modal-title">Berhasil</h5>
-      </div>
-
-      <div class="modal-body text-center">
-        <p class="fs-5">Data anda berhasil kami simpan.</p>
-      </div>
-
-      <div class="modal-footer">
-        <button class="btn btn-success w-100" data-bs-dismiss="modal">OK</button>
-      </div>
-
-    </div>
-  </div>
-</div>
-
-
-<!-- Bootstrap JS -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-
-<script>
-const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyAOVu1tzWaBbVcY66BK3m2rn-yj457qevvz_H-qvHxKm7Djry_wASX_JvC5yMio6t_/exec";
-
-function getBase64(file) {
-    return new Promise((resolve) => {
-        if (!file) return resolve(null);
-        const reader = new FileReader();
-        reader.onload = () => resolve(reader.result.split(",")[1]);
-        reader.readAsDataURL(file);
-    });
-}
-
-function validateForm() {
-
-    let fields = [
-        { id: "nama", msg: "Nama wajib diisi" },
-        { id: "npp", msg: "NPP wajib diisi" },
-        { id: "divisi", msg: "Divisi wajib diisi" },
-        { id: "cou", msg: "COU wajib diisi" },
-        { id: "jabatan", msg: "Jabatan wajib diisi" },
-    ];
-
-    for (let f of fields) {
-        if (document.getElementById(f.id).value.trim() === "") {
-            alert(f.msg);
-            document.getElementById(f.id).focus();
-            return false;
+        function getBase64(file) {
+            return new Promise((resolve) => {
+                if (!file) return resolve(null);
+                const reader = new FileReader();
+                reader.onload = () => resolve(reader.result.split(",")[1]);
+                reader.readAsDataURL(file);
+            });
         }
-    }
 
-    if (!document.getElementById("fileLamaran").files.length) {
-        alert("File Lamaran wajib diupload");
-        return false;
-    }
+        function validateForm() {
+            let fields = [
+                { id: "nama", msg: "Nama wajib diisi" },
+                { id: "npp", msg: "NPP wajib diisi" },
+                { id: "divisi", msg: "Divisi wajib diisi" },
+                { id: "cou", msg: "COU wajib diisi" },
+                { id: "jabatan", msg: "Jabatan wajib diisi" },
+            ];
 
-    if (!document.getElementById("fileCV").files.length) {
-        alert("File CV wajib diupload");
-        return false;
-    }
+            for (let f of fields) {
+                if (document.getElementById(f.id).value.trim() === "") {
+                    alert(f.msg);
+                    document.getElementById(f.id).focus();
+                    return false;
+                }
+            }
 
-    if (!document.getElementById("fileOther").files.length) {
-        alert("Berkas Lainnya wajib diupload");
-        return false;
-    }
+            if (!document.getElementById("fileLamaran").files.length) {
+                alert("File Lamaran wajib diupload");
+                return false;
+            }
 
-    return true;
-}
+            if (!document.getElementById("fileCV").files.length) {
+                alert("File CV wajib diupload");
+                return false;
+            }
 
-async function submitForm() {
+            if (!document.getElementById("fileOther").files.length) {
+                alert("Berkas Lainnya wajib diupload");
+                return false;
+            }
 
-    if (!validateForm()) return;
+            return true;
+        }
 
-    // Tampilkan modal loading (di tengah)
-    const loadingModal = new bootstrap.Modal(document.getElementById("loadingModal"));
-    loadingModal.show();
+        async function submitForm() {
+            if (!validateForm()) return;
 
-    let data = {
-        nama: document.getElementById("nama").value.trim(),
-        npp: document.getElementById("npp").value.trim(),
-        divisi: document.getElementById("divisi").value.trim(),
-        cou: document.getElementById("cou").value.trim(),
-        jabatan: document.getElementById("jabatan").value.trim(),
+            // Tampilkan modal loading
+            const loadingModal = new bootstrap.Modal(document.getElementById("loadingModal"));
+            loadingModal.show();
 
-        lamaranBase64: await getBase64(document.getElementById("fileLamaran").files[0]),
-        lamaranName: document.getElementById("fileLamaran").files[0]?.name || "",
+            let data = {
+                nama: document.getElementById("nama").value.trim(),
+                npp: document.getElementById("npp").value.trim(),
+                divisi: document.getElementById("divisi").value.trim(),
+                cou: document.getElementById("cou").value.trim(),
+                jabatan: document.getElementById("jabatan").value.trim(),
 
-        cvBase64: await getBase64(document.getElementById("fileCV").files[0]),
-        cvName: document.getElementById("fileCV").files[0]?.name || "",
+                lamaranBase64: await getBase64(document.getElementById("fileLamaran").files[0]),
+                lamaranName: document.getElementById("fileLamaran").files[0]?.name || "",
 
-        otherBase64: await getBase64(document.getElementById("fileOther").files[0]),
-        otherName: document.getElementById("fileOther").files[0]?.name || "",
-    };
+                cvBase64: await getBase64(document.getElementById("fileCV").files[0]),
+                cvName: document.getElementById("fileCV").files[0]?.name || "",
 
-    const res = await fetch(SCRIPT_URL, {
-        method: "POST",
-        body: JSON.stringify(data)
-    });
+                otherBase64: await getBase64(document.getElementById("fileOther").files[0]),
+                otherName: document.getElementById("fileOther").files[0]?.name || "",
+            };
 
-    const result = await res.json();
+            const res = await fetch(SCRIPT_URL, {
+                method: "POST",
+                body: JSON.stringify(data)
+            });
 
-    // Sembunyikan modal loading
-    bootstrap.Modal.getInstance(document.getElementById("loadingModal")).hide();
+            const result = await res.json();
 
-    // Tampilkan modal sukses
-    new bootstrap.Modal(document.getElementById("successModal")).show();
-}
-</script>
+            // Tutup loading
+            bootstrap.Modal.getInstance(document.getElementById("loadingModal")).hide();
+
+            // Tampilkan modal sukses
+            new bootstrap.Modal(document.getElementById("successModal")).show();
+        }
+    </script>
 
 </body>
 </html>
